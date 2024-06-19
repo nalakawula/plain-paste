@@ -5,7 +5,7 @@ from bson import ObjectId
 from datetime import datetime, timezone, timedelta
 
 async def create_paste(paste: PasteCreate):
-    new_paste = paste.dict()
+    new_paste = paste.model_dump()
     new_paste["created_at"] = datetime.now(timezone.utc)
     result = await db.pastes.insert_one(new_paste)
     return str(result.inserted_id)
