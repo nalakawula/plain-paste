@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
     <title>Plain Paste</title>
     <script src="/static/htmx.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
+
 <body>
-    <header>
-        <h1>Plain Paste</h1>
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <div class="container">
+            {% block content %}{% endblock %}
+    </div>
 </body>
+
 </html>
