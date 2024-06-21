@@ -2,10 +2,28 @@
 {% block content %}
 <!-- <h2>Create a New Paste</h2> -->
 <form hx-post="/create" hx-target="#paste-link">
-    <textarea name="content" rows="10" cols="50" required></textarea><br>
+    <textarea name="content" rows="10" cols="50" required></textarea>
+    <br>
     <label>
         <input type="checkbox" name="burn_after_reading"> Burn After Reading
-    </label><br>
+    </label>
+    <br>
+    <label for="expires_in">Expires in</label>
+    <select name="expires_in" required>
+        <option value="60">1 hour</option>
+        <option value="120">2 hours</option>
+        <option value="180">3 hours</option>
+        <option value="360">6 hours</option>
+        <option value="720">12 hours</option>
+        <option value="1440">1 day</option>
+        <option value="2880">2 days</option>
+        <option value="4320">3 days</option>
+        <option value="5760">4 days</option>
+        <option value="7200">5 days</option>
+        <option value="8640">6 days</option>
+        <option value="10080">1 week</option>
+    </select>
+    <br>
     <button type="submit">Create</button>
 </form>
 <div id="paste-link"></div>

@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Optional
 from datetime import datetime, timezone
 
 def current_time_utc():
@@ -9,3 +10,4 @@ class Paste(BaseModel):
     content: str
     burn_after_reading: bool
     created_at: datetime = Field(default_factory=current_time_utc)
+    expired_at: Optional[datetime]
