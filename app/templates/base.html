@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pastebin</title>
-    <script src="{{ url_for('static', path='htmx.min.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='style.css') }}">
+    <title>Plain Paste</title>
+    <script src="/static/htmx.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
     <header>
-        <h1>Pastebin</h1>
+        <h1>Plain Paste</h1>
     </header>
     <main>
         {% block content %}{% endblock %}

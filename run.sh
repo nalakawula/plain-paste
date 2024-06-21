@@ -1,0 +1,1 @@
+/home/sumar/Projects/pastebin-fastapi/v3/venv/bin/uvicorn app.main:app --reload

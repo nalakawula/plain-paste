@@ -1,0 +1,29 @@
+# Ignore common Python files and directories
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Ignore virtual environment files
+venv/
+env/
+.venv/
+.venv*/
+
+# Ignore development and debugging files
+.vscode/
+.idea/
+*.egg-info/
+*.egg/
+dist/
+build/
+*.log
+
+# Ignore version control files
+.git/
+.gitignore
+
+# ignore .env file
+.env
+
+run.sh
