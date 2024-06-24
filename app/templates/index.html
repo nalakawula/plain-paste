@@ -1,29 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
-<form hx-post="/create" hx-target="#paste-link">
+<form id="createForm" hx-post="/create" hx-target="#paste-link">
     <textarea name="content" placeholder="Paste your text here..." required></textarea>
     <br>
     <label>
-        <input type="checkbox" name="burn_after_reading"> Burn After Reading
+        <input type="checkbox" id="burnAfterReading" name="burn_after_reading" checked hx-trigger="change" hx-get="/toggleExpires"> Burn After Reading
     </label>
-    <br>
-    <label for="expires_in">Expires in</label>
-    <select name="expires_in" required>
-        <option value="60">1 hour</option>
-        <option value="120">2 hours</option>
-        <option value="180">3 hours</option>
-        <option value="360">6 hours</option>
-        <option value="720">12 hours</option>
-        <option value="1440">1 day</option>
-        <option value="2880">2 days</option>
-        <option value="4320">3 days</option>
-        <option value="5760">4 days</option>
-        <option value="7200">5 days</option>
-        <option value="8640">6 days</option>
-        <option value="10080">1 week</option>
-    </select>
+    <!-- Expires in select box -->
+    <div id="expiresInContainer" style="display:none;">
+        <label for="expires_in">Expires in:</label>
+        <select name="expires_in" required>
+            <option value="60">1 hour</option>
+            <option value="120">2 hours</option>
+            <option value="180">3 hours</option>
+            <option value="360">6 hours</option>
+            <option value="720">12 hours</option>
+            <option value="1440">1 day</option>
+            <option value="2880">2 days</option>
+            <option value="4320">3 days</option>
+            <option value="5760">4 days</option>
+            <option value="7200">5 days</option>
+            <option value="8640">6 days</option>
+            <option value="10080">1 week</option>
+        </select>
+    </div>
     <br>
     <button type="submit">Create</button>
 </form>
 <div id="paste-link"></div>
+
+<!-- Script to handle the htmx functionality -->
+<script>
+    // Function to toggle display of Expires in based on Burn after reading checkbox
+    function toggleExpiresIn() {
+        var burnAfterReading = document.getElementById('burnAfterReading');
+        var expiresInContainer = document.getElementById('expiresInContainer');
+
+        if (burnAfterReading.checked) {
+            expiresInContainer.style.display = 'none'; // Hide Expires in
+        } else {
+            expiresInContainer.style.display = 'block'; // Show Expires in
+        }
+    }
+
+    // Bind toggle function to checkbox change event using htmx
+    document.getElementById('burnAfterReading').addEventListener('change', function() {
+        toggleExpiresIn();
+
+        // Trigger htmx to update the server with new state
+        htmx.trigger(document.getElementById('createForm'), 'change');
+    });
+
+    // Initial call to set initial state
+    toggleExpiresIn();
+</script>
 {% endblock %}
