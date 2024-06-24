@@ -8,3 +8,9 @@ This is a part of my exercise to build pastebin using FastAPI and MongoDB.
 ```
 uvicorn app.main:app --reload
 ```
+
+# deploy to fly.io
+```
+fly launch --no-deploy
+fly deploy --ha=false
+```
