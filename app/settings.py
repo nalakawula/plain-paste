@@ -1,10 +1,8 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    mongodb_url: str
+    model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    mongodb_url: str
 
 settings = Settings()

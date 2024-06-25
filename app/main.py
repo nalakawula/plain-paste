@@ -20,8 +20,8 @@ templates = Jinja2Templates(directory="app/templates")
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+async def index(request: Request):
+    return templates.TemplateResponse(request=request, name="index.html")
 
 @app.post("/create", response_class=HTMLResponse)
 async def create_paste(request: Request, content: str = Form(...), burn_after_reading: bool = Form(False), expires_in: int = Form(...)):
@@ -29,7 +29,8 @@ async def create_paste(request: Request, content: str = Form(...), burn_after_re
     paste = schemas.PasteCreate(content=content, burn_after_reading=burn_after_reading, expired_at=expires_at)
     paste_id = await crud.create_paste(paste)
     paste_url = request.url_for('read_paste', id=paste_id)
-    return templates.TemplateResponse("paste_created.html", {"request": request, "paste_url": paste_url})
+    return templates.TemplateResponse(request=request, name="paste_created.html", context={"paste_url": paste_url})
+
 
 @app.get("/paste/{id}", response_class=HTMLResponse)
 async def read_paste(request: Request, id: str):
@@ -37,5 +38,5 @@ async def read_paste(request: Request, id: str):
     if paste:
         if paste.burn_after_reading:
             await crud.delete_paste(id)
-        return templates.TemplateResponse("paste.html", {"request": request, "paste": paste})
+        return templates.TemplateResponse(request=request, name="paste.html", context={"paste": paste})
     return RedirectResponse(url="/")
